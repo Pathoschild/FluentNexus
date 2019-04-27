@@ -1,0 +1,16 @@
+*.lock.json
+*.nuget.props
+*.nuget.targets
+*.ps1
+*.suo
+*.sln.docstates
+*.user
+*.vsp
+.vs/
+pack.bat
+Thumbs.db
+[Bb]in
+[Dd]ebug*/
+obj/
+[Rr]elease*/
+_ReSharper*/
