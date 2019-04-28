@@ -29,7 +29,7 @@ Create the client with your [personal API key](https://www.nexusmods.com/users/m
 (or an [SSO key](https://github.com/Nexus-Mods/sso-integration-demo)), and set the [user
 agent](https://en.wikipedia.org/wiki/User_agent#Format_for_automated_agents_(bots)) you want to use:
 ```c#
-var nexus = new FluentNexus("api key here").SetUserAgent("YourProjectName/1.0.0 (+url)");
+var nexus = new NexusClient("api key here").SetUserAgent("YourProjectName/1.0.0 (+url)");
 ```
 
 (The user agent will default to something like `FluentNexus/1.0.0 (+http://github.com/Pathoschild/FluentNexus)`
@@ -46,7 +46,7 @@ For example...
   ```
 * Get a list of files for a mod:
   ```c#
-  ModFileList[] files = await nexus.ModFiles.GetModFiles("stardewvalley", 2400);
+  ModFileList files = await nexus.ModFiles.GetModFiles("stardewvalley", 2400);
   ```
 
 * Get download links for a mod file:
@@ -75,11 +75,11 @@ Nexus error message, and response:
 ```c#
 try
 {
-   string downloadLink = await nexus.ModFiles.GetDownloadLink(...);
+   ModFileDownloadLink[] links = await nexus.ModFiles.GetDownloadLinks("stardewvalley", 2400, 9622);
 }
 catch (ApiException ex)
 {
-   if (ex.Status == 403 && ex.Message.Contains("this is for premium users only"))
+   if (ex.Status == HttpStatusCode.Forbidden && ex.Message.Contains("this is for premium users only"))
       // user needs a premium account
 }
 ```
@@ -123,7 +123,7 @@ UserTrackedMod[] mods = nexus.Users.GetTrackedMods().Result;
 Or if you don't need the response:
 
 ```c#
-nexus.Users.TrackMod("stardewvalley", 2400).AsResponse().Wait();
+nexus.Users.TrackMod("stardewvalley", 2400).Wait();
 ```
 
 [.NET Standard]: https://docs.microsoft.com/en-us/dotnet/articles/standard/library
