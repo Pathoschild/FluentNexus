@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Pathoschild.FluentNexus.Framework;
 using Pathoschild.FluentNexus.Models;
 using Pathoschild.Http.Client;
 
@@ -36,7 +37,8 @@ namespace Pathoschild.FluentNexus.Endpoints
             return await this.Client
                 .GetAsync($"v1/games/{domainName}/mods/updated.json")
                 .WithArguments(new { period = period })
-                .AsArray<ModUpdate>();
+                .AsArray<ModUpdate>()
+                .MakeSyncSafe();
         }
 
         /// <summary>Get the ten latest mods added for a specified game.</summary>
@@ -45,7 +47,8 @@ namespace Pathoschild.FluentNexus.Endpoints
         {
             return await this.Client
                 .GetAsync($"v1/games/{domainName}/mods/latest_added.json")
-                .AsArray<Mod>();
+                .AsArray<Mod>()
+                .MakeSyncSafe();
         }
 
         /// <summary>Get the ten all-time top trending mods for a specified game.</summary>
@@ -54,7 +57,8 @@ namespace Pathoschild.FluentNexus.Endpoints
         {
             return await this.Client
                 .GetAsync($"v1/games/{domainName}/mods/trending.json")
-                .AsArray<Mod>();
+                .AsArray<Mod>()
+                .MakeSyncSafe();
         }
 
         /// <summary>Get the mods which has a file matching the given MDF hash.</summary>
@@ -64,7 +68,8 @@ namespace Pathoschild.FluentNexus.Endpoints
         {
             return await this.Client
                 .GetAsync($"v1/games/{domainName}/mods/md5_search/{hash}.json")
-                .AsArray<ModHashResult>();
+                .AsArray<ModHashResult>()
+                .MakeSyncSafe();
         }
 
         /****
@@ -77,7 +82,8 @@ namespace Pathoschild.FluentNexus.Endpoints
         {
             return await this.Client
                 .GetAsync($"v1/games/{domainName}/mods/{modID}.json")
-                .As<Mod>();
+                .As<Mod>()
+                .MakeSyncSafe();
         }
 
         /// <summary>Get the change logs for a mod, indexed by version number.</summary>
@@ -87,7 +93,8 @@ namespace Pathoschild.FluentNexus.Endpoints
         {
             return await this.Client
                 .GetAsync($"v1/games/{domainName}/mods/{modID}/changelogs.json")
-                .As<Dictionary<string, string[]>>();
+                .As<Dictionary<string, string[]>>()
+                .MakeSyncSafe();
         }
 
         /****
@@ -101,7 +108,8 @@ namespace Pathoschild.FluentNexus.Endpoints
         {
             await this.Client
                 .PostAsync($"v1/games/{domainName}/mods/{modID}/endorse.json")
-                .WithBody(new { Version = version }); // sent as case-sensitive JSON (unlike other endpoints)
+                .WithBody(new { Version = version })
+                .MakeSyncSafe(); // sent as case-sensitive JSON (unlike other endpoints)
         }
 
         /// <summary>Remove an endorsement for a mod.</summary>
@@ -112,7 +120,8 @@ namespace Pathoschild.FluentNexus.Endpoints
         {
             await this.Client
                 .PostAsync($"v1/games/{domainName}/mods/{modID}/abstain.json")
-                .WithBody(new { Version = version }); // sent as case-sensitive JSON (unlike other endpoints)
+                .WithBody(new { Version = version })
+                .MakeSyncSafe(); // sent as case-sensitive JSON (unlike other endpoints)
         }
     }
 }

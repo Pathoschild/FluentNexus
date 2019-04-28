@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Pathoschild.FluentNexus.Framework;
 using Pathoschild.FluentNexus.Models;
 using Pathoschild.Http.Client;
 
@@ -31,7 +32,8 @@ namespace Pathoschild.FluentNexus.Endpoints
             Game[] games = await this.Client
                 .GetAsync("v1/games.json")
                 .WithArgument("include_unapproved", includeUnapproved ? 1 : 0)
-                .AsArray<Game>();
+                .AsArray<Game>()
+                .MakeSyncSafe();
             this.NormaliseGameData(games);
             return games;
         }
@@ -42,7 +44,8 @@ namespace Pathoschild.FluentNexus.Endpoints
         {
             Game game = await this.Client
                 .GetAsync($"v1/games/{domainName}.json")
-                .As<Game>();
+                .As<Game>()
+                .MakeSyncSafe();
             this.NormaliseGameData(game);
             return game;
         }

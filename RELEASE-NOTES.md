@@ -1,5 +1,6 @@
 # Release notes
-## 0.1
-Released 27 April 2019.
+## 1.0
+Upcoming release.
 
 * Initial release, with support for all current Nexus API endpoints.
+* Added support for synchronous UI contexts.

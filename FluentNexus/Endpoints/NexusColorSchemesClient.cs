@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Pathoschild.FluentNexus.Framework;
 using Pathoschild.FluentNexus.Models;
 using Pathoschild.Http.Client;
 
@@ -29,7 +30,8 @@ namespace Pathoschild.FluentNexus.Endpoints
         {
             return await this.Client
                 .GetAsync("v1/colourschemes.json")
-                .AsArray<ColorScheme>();
+                .AsArray<ColorScheme>()
+                .MakeSyncSafe();
         }
     }
 }

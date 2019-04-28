@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
+using Pathoschild.FluentNexus.Framework;
 using Pathoschild.FluentNexus.Models;
 using Pathoschild.Http.Client;
 
@@ -44,7 +45,8 @@ namespace Pathoschild.FluentNexus.Endpoints
                 .GetAsync($"v1/games/{domainName}/mods/{modID}/files.json")
                 .WithOptions(ignoreNullArguments: true)
                 .WithArgument("category", categoryList)
-                .As<ModFileList>();
+                .As<ModFileList>()
+                .MakeSyncSafe();
         }
 
         /// <summary>Get a specific mod file.</summary>
@@ -55,7 +57,8 @@ namespace Pathoschild.FluentNexus.Endpoints
         {
             return await this.Client
                 .GetAsync($"v1/games/{domainName}/mods/{modID}/files/{fileID}.json")
-                .As<ModFile>();
+                .As<ModFile>()
+                .MakeSyncSafe();
         }
 
         /// <summary>Get the download links for a mod file. This may return multiple results if the file is available from different CDNs. This overload is only available when authenticated as a premium Nexus account.</summary>
@@ -66,7 +69,8 @@ namespace Pathoschild.FluentNexus.Endpoints
         {
             return await this.Client
                 .GetAsync($"v1/games/{domainName}/mods/{modID}/files/{fileID}/download_link.json")
-                .AsArray<ModFileDownloadLink>();
+                .AsArray<ModFileDownloadLink>()
+                .MakeSyncSafe();
         }
 
         /// <summary>Get the download links for a mod file. This may return multiple results if the file is available from different CDNs.</summary>
@@ -84,7 +88,8 @@ namespace Pathoschild.FluentNexus.Endpoints
                     key = nxmKey,
                     expires = nxmExpiry.ToString(CultureInfo.InvariantCulture)
                 })
-                .AsArray<ModFileDownloadLink>();
+                .AsArray<ModFileDownloadLink>()
+                .MakeSyncSafe();
         }
 
 

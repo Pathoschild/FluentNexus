@@ -1,5 +1,6 @@
 using System.Net;
 using System.Threading.Tasks;
+using Pathoschild.FluentNexus.Framework;
 using Pathoschild.FluentNexus.Models;
 using Pathoschild.Http.Client;
 
@@ -31,7 +32,8 @@ namespace Pathoschild.FluentNexus.Endpoints
         {
             return await this.Client
                 .GetAsync("v1/users/validate.json")
-                .As<User>();
+                .As<User>()
+                .MakeSyncSafe();
         }
 
         /// <summary>Remove a mod from the user's tracked mods list, if it's tracked.</summary>
@@ -39,7 +41,8 @@ namespace Pathoschild.FluentNexus.Endpoints
         {
             return await this.Client
                 .GetAsync("v1/user/endorsements.json")
-                .AsArray<UserEndorsement>();
+                .AsArray<UserEndorsement>()
+                .MakeSyncSafe();
         }
 
         /// <summary>Fetch the mods being tracked by the user.</summary>
@@ -47,7 +50,8 @@ namespace Pathoschild.FluentNexus.Endpoints
         {
             return await this.Client
                 .GetAsync("v1/user/tracked_mods.json")
-                .AsArray<UserTrackedMod>();
+                .AsArray<UserTrackedMod>()
+                .MakeSyncSafe();
         }
 
         /// <summary>Add a mod to the user's tracked mods list.</summary>
@@ -60,7 +64,8 @@ namespace Pathoschild.FluentNexus.Endpoints
                 .PostAsync("v1/user/tracked_mods.json")
                 .WithArgument("domain_name", domainName)
                 .WithBody(new { mod_id = modID })
-                .WithOptions(ignoreHttpErrors: true);
+                .WithOptions(ignoreHttpErrors: true)
+                .MakeSyncSafe();
 
             if (response.IsSuccessStatusCode)
                 return true;
@@ -78,7 +83,8 @@ namespace Pathoschild.FluentNexus.Endpoints
                 .DeleteAsync("v1/user/tracked_mods.json")
                 .WithArgument("domain_name", domainName)
                 .WithBody(new { mod_id = modID })
-                .WithOptions(ignoreHttpErrors: true);
+                .WithOptions(ignoreHttpErrors: true)
+                .MakeSyncSafe();
 
             if (!response.IsSuccessStatusCode && response.Status != HttpStatusCode.NotFound)
                 throw new ApiException(response, $"The API query failed with status code {response.Message.StatusCode}: {response.Message.ReasonPhrase}");
