@@ -8,20 +8,20 @@
     <Title>FluentNexus</Title>
     <Version>0.1.0</Version>
     <Authors>Pathoschild</Authors>
-    <Description>A modern async HTTP client for REST APIs. Its fluent interface lets you send an HTTP request and parse the response in one go.</Description>
+    <Description>A modern async HTTP client for the Nexus Mods API. It gives you simple strongly-typed methods to access all of the Nexus API endpoints, handling the gritty details like deserialisation, content negotiation, URL encoding, and error-handling.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/Pathoschild/FluentHttpClient#readme</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/Pathoschild/FluentNexus#readme</PackageProjectUrl>
     <PackageIconUrl>https://s3.amazonaws.com/pathoschild/avatar-64x64.png</PackageIconUrl>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/Pathoschild/FluentHttpClient</RepositoryUrl>
-    <PackageReleaseNotes>See release notes at https://github.com/Pathoschild/FluentHttpClient/blob/develop/RELEASE-NOTES.md#10</PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/Pathoschild/FluentNexus</RepositoryUrl>
+    <PackageReleaseNotes>See release notes at https://github.com/Pathoschild/FluentNexus/blob/develop/RELEASE-NOTES.md</PackageReleaseNotes>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
-    <PackageReference Include="Pathoschild.Http.FluentClient" Version="3.3.0-alpha-20190425" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
+    <PackageReference Include="Pathoschild.Http.FluentClient" Version="3.3.0" />
   </ItemGroup>
 
 </Project>

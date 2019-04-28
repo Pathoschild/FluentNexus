@@ -1,6 +1,6 @@
-**FluentNexus** is a modern async HTTP client for the Nexus Mods API. It provides simplified
-methods for querying and submitting requests to Nexus Mods, hiding away the gritty details like
-deserialisation, content negotiation, and URL encoding.
+**FluentNexus** is a modern async HTTP client for the Nexus Mods API. It gives you simple
+strongly-typed methods to access all of the Nexus API endpoints, handling the gritty details like
+deserialisation, content negotiation, URL encoding, and error-handling.
 
 Designed with discoverability and extensibility as core principles, just autocomplete to see which
 methods are available at each step.
