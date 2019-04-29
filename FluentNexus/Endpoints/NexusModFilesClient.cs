@@ -38,7 +38,7 @@ namespace Pathoschild.FluentNexus.Endpoints
         {
             // format category list
             categories = categories.Where(p => p != FileCategory.Deleted).Distinct().ToArray();
-            string categoryList = categories.Any() ? string.Join(", ", categories.Select(this.GetCategoryFilter)) : null;
+            string categoryList = categories.Any() ? string.Join(",", categories.Select(this.GetCategoryFilter)) : null;
 
             // send request
             return await this.Client
