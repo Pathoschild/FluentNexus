@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using Pathoschild.FluentNexus.Endpoints;
 using Pathoschild.FluentNexus.Framework;
-using Pathoschild.FluentNexus.Models;
 using Pathoschild.Http.Client;
 using Pathoschild.Http.Client.Extensibility;
 
@@ -16,8 +14,8 @@ namespace Pathoschild.FluentNexus
         /*********
         ** Fields
         *********/
-        /// <summary>Metadata about the most recent request, if applicable.</summary>
-        private RequestMetadata LastRequestMetadata;
+        /// <summary>Provides access to the Nexus Mods rate limits with utility methods.</summary>
+        private RateLimitManager RateLimits;
 
 
         /*********
@@ -57,8 +55,8 @@ namespace Pathoschild.FluentNexus
 
             // add filters
             this.HttpClient.Filters.Remove<DefaultErrorFilter>();
+            this.HttpClient.Filters.Add(new ResponseCallbackFilter(this.OnResponseReceived)); // must be set before the error filter, so we can update rate limits if possible
             this.HttpClient.Filters.Add(new NexusErrorFilter());
-            this.HttpClient.Filters.Add(new ResponseCallbackFilter(this.OnResponseReceived));
 
             // init endpoints
             this.ColorSchemes = new NexusColorSchemesClient(this.HttpClient);
@@ -76,11 +74,13 @@ namespace Pathoschild.FluentNexus
             return this;
         }
 
-        /// <summary>Get metadata about the last request, including rate limits and runtime.</summary>
-        /// <returns>Returns the last request metadata, or <c>null</c> if no request has been submitted yet.</returns>
-        public RequestMetadata GetLastRequestMetadata()
+        /// <summary>Get metadata about the API rate limits from the last response. If no request has been sent yet, this sends an auth validation request (which doesn't consume rate limits).</summary>
+        public async Task<IRateLimitManager> GetRateLimits()
         {
-            return this.LastRequestMetadata;
+            if (this.RateLimits == null || this.RateLimits.IsOutdated())
+                await this.Users.ValidateAsync();
+
+            return this.RateLimits;
         }
 
 
@@ -91,37 +91,14 @@ namespace Pathoschild.FluentNexus
         /// <param name="response">The HTTP response from the Nexus API.</param>
         private void OnResponseReceived(IResponse response)
         {
-            T GetHeaderValue<T>(string name, Func<string, T> parse)
+            if (this.RateLimits == null)
             {
-                if (response.Message.Headers.TryGetValues(name, out IEnumerable<string> values))
-                {
-                    string value = values.FirstOrDefault();
-                    if (value != null)
-                    {
-                        try
-                        {
-                            return parse(value);
-                        }
-                        catch (Exception ex)
-                        {
-                            throw new InvalidOperationException($"The response includes unexpected {name} value: '{value}' can't be converted to {typeof(T).FullName}.", ex);
-                        }
-                    }
-                }
-
-                throw new InvalidOperationException($"The response doesn't include the expected {name} header.");
+                var rateLimits = new RateLimitManager();
+                rateLimits.UpdateFrom(response);
+                this.RateLimits = rateLimits;
             }
-
-            this.LastRequestMetadata = new RequestMetadata
-            {
-                DailyLimit = GetHeaderValue("x-rl-daily-limit", int.Parse),
-                DailyRemaining = GetHeaderValue("x-rl-daily-remaining", int.Parse),
-                DailyReset = GetHeaderValue("x-rl-daily-reset", DateTimeOffset.Parse),
-                HourlyLimit = GetHeaderValue("x-rl-hourly-limit", int.Parse),
-                HourlyRemaining = GetHeaderValue("x-rl-hourly-remaining", int.Parse),
-                HourlyReset = GetHeaderValue("x-rl-hourly-reset", DateTimeOffset.Parse),
-                LastRequestRuntime = GetHeaderValue("x-runtime", float.Parse)
-            };
+            else
+                this.RateLimits.UpdateFrom(response);
         }
 
         /// <summary>Get the default user agent.</summary>

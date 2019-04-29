@@ -86,15 +86,29 @@ catch (ApiException ex)
 
 ## Advanced
 ### Rate limits
-The Nexus Mods API imposes some rate limits (see [API docs](https://app.swaggerhub.com/apis-docs/NexusMods/nexus-mods_public_api_params_in_form_data/1.0)).
-They're high enough that you don't need to worry about them in most cases, but you can check your
-current rate limit usage after making a request:
+The Nexus API sets some rate limits (see [API docs](https://app.swaggerhub.com/apis-docs/NexusMods/nexus-mods_public_api_params_in_form_data/1.0)),
+and will return HTTP 429 if you exceed them.
+
+You can check your rate limit usage anytime. Since this is cached on each response, this will only
+ping the Nexus API if you haven't sent a request recently. (Even if it does ping the API, this
+won't be counted against your limits.) To check the rate limit values:
 
 ```c#
-RequestMetadata meta = nexus.GetLastRequestMetadata();
-Console.WriteLine($"Daily usage: {meta.DailyRemaining}/{meta.DailyLimit} requests left, will reset at {meta.DailyReset}.");
-Console.WriteLine($"Hourly usage: {meta.HourlyRemaining}/{meta.HourlyLimit} requests left, will reset at {meta.HourlyReset}.");
-Console.WriteLine($"The last request took {meta.LastRequestRuntime} seconds of server time.");
+IRateLimitManager limits = await nexus.GetRateLimits();
+Console.WriteLine($"Daily usage: {limits.DailyRemaining}/{limits.DailyLimit} requests left, will reset at {limits.DailyReset}.");
+Console.WriteLine($"Hourly usage: {limits.HourlyRemaining}/{limits.HourlyLimit} requests left, will reset at {limits.HourlyReset}.");
+```
+
+The client can also help you automate rate limit handling. For example, let's say you want
+to pause the script when you exceed the rate limits but resume when they renew:
+```c#
+IRateLimitManager rateLimits = await nexus.GetRateLimits();
+if (rateLimits.IsBlocked())
+{
+   TimeSpan renewDelay = rateLimits.GetTimeUntilRenewal();
+   Console.WriteLine($"Exceeded rate limits, will resume at {DateTime.Now + renewDelay} local time.");
+   Thread.Sleep(renewDelay);
+}
 ```
 
 ### Underlying HTTP client
