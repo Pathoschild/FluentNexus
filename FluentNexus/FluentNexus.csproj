@@ -6,7 +6,7 @@
     <RootNamespace>Pathoschild.FluentNexus</RootNamespace>
     <PackageId>Pathoschild.FluentNexus</PackageId>
     <Title>FluentNexus</Title>
-    <Version>0.4.0</Version>
+    <Version>0.5.0</Version>
     <Authors>Pathoschild</Authors>
     <Description>A modern async HTTP client for the Nexus Mods API. It gives you simple strongly-typed methods to access all of the Nexus API endpoints, handling the gritty details like deserialisation, content negotiation, URL encoding, and error-handling.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -15,7 +15,7 @@
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/Pathoschild/FluentNexus</RepositoryUrl>
     <PackageReleaseNotes>
-      - Added rate limit manager.
+      - Added `Game.IsApproved` to distinguish 'not approved' from 'approved before approval date was tracked'.
     </PackageReleaseNotes>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>

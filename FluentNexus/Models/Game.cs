@@ -49,12 +49,15 @@ namespace Pathoschild.FluentNexus.Models
         [JsonProperty("file_endorsements")]
         public long Endorsements { get; set; }
 
-        /// <summary>When the game was approved and became available on Nexus Mods (if approved).</summary>
+        /// <summary>The mod categories defined for this game.</summary>
+        public GameCategory[] Categories { get; set; }
+
+        /// <summary>Whether the game is approved and available on Nexus Mods.</summary>
+        public bool IsApproved { get; set; }
+
+        /// <summary>When the game became approved and available on Nexus Mods, if available. This may be null for very old approved games.</summary>
         [JsonProperty("approved_date")]
         [JsonConverter(typeof(UnixDateTimeConverter))]
         public DateTimeOffset? ApprovedDate { get; set; }
-
-        /// <summary>The mod categories defined for this game.</summary>
-        public GameCategory[] Categories { get; set; }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Pathoschild.FluentNexus.Framework;
 using Pathoschild.FluentNexus.Models;
@@ -13,6 +14,14 @@ namespace Pathoschild.FluentNexus.Endpoints
         *********/
         /// <summary>The Nexus API client.</summary>
         private readonly IClient Client;
+
+        /// <summary>The <see cref="DateTimeOffset"/> ticks which match Unix epoch.</summary>
+        private static readonly long UnixEpochTicks =
+#if NETSTANDARD
+            DateTimeOffset.FromUnixTimeMilliseconds(0).Ticks;
+#else
+            new DateTimeOffset(1970, 1, 1, 0, 0, 0, 0, TimeSpan.Zero).Ticks;
+#endif
 
 
         /*********
@@ -60,13 +69,18 @@ namespace Pathoschild.FluentNexus.Endpoints
         {
             foreach (Game game in games)
             {
+                // normalise approval date
+                // Nexus API sets it to '0' (unapproved), '1' (approved before the date was tracked), or a valid date
+                game.IsApproved = game.ApprovedDate?.Ticks > NexusGamesClient.UnixEpochTicks;
                 if (game.ApprovedDate?.Year <= 1970)
-                    game.ApprovedDate = null; // Nexus API sets this to '1' if it's unapproved
+                    game.ApprovedDate = null;
 
+                // normalise parent categories
+                // Nexus API sets it to 'false' (which becomes 0) if there's no parent category
                 foreach (GameCategory category in game.Categories)
                 {
                     if (category.ParentCategory == 0)
-                        category.ParentCategory = null; // Nexus API sets this to 'false' (which becomes 0) if there's no parent category
+                        category.ParentCategory = null;
                 }
             }
         }
