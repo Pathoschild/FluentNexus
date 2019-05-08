@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
 using Pathoschild.FluentNexus.Endpoints;
@@ -14,7 +15,10 @@ namespace Pathoschild.FluentNexus
         /*********
         ** Fields
         *********/
-        /// <summary>Provides access to the Nexus Mods rate limits with utility methods.</summary>
+        /// <summary>Whether authentication failed for the last API request.</summary>
+        private bool LastAuthenticationFailed;
+
+        /// <summary>Provides access to the Nexus Mods rate limits with utility methods. This is <c>null</c> if no request was received yet, or if <see cref="LastAuthenticationFailed"/>.</summary>
         private RateLimitManager RateLimits;
 
 
@@ -75,11 +79,16 @@ namespace Pathoschild.FluentNexus
         }
 
         /// <summary>Get metadata about the API rate limits from the last response. If no request has been sent yet, this sends an auth validation request (which doesn't consume rate limits).</summary>
+        /// <exception cref="InvalidOperationException">Can't retrieve rate limits because API authentication failed.</exception>
         public async Task<IRateLimitManager> GetRateLimits()
         {
-            if (this.RateLimits == null || this.RateLimits.IsOutdated())
+            // refresh data
+            if (!this.LastAuthenticationFailed && (this.RateLimits == null || this.RateLimits.IsOutdated()))
                 await this.Users.ValidateAsync();
 
+            // return rate limits if available
+            if (this.LastAuthenticationFailed)
+                throw new InvalidOperationException("Can't retrieve rate limits because API authentication failed.");
             return this.RateLimits;
         }
 
@@ -91,6 +100,16 @@ namespace Pathoschild.FluentNexus
         /// <param name="response">The HTTP response from the Nexus API.</param>
         private void OnResponseReceived(IResponse response)
         {
+            // handle authentication failure
+            if (response.Status == HttpStatusCode.Unauthorized)
+            {
+                this.RateLimits = null;
+                this.LastAuthenticationFailed = true;
+                return;
+            }
+
+            // handle success
+            this.LastAuthenticationFailed = false;
             if (this.RateLimits == null)
             {
                 var rateLimits = new RateLimitManager();
