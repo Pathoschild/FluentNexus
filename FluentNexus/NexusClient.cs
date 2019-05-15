@@ -1,6 +1,8 @@
 using System;
 using System.Net;
 using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Pathoschild.FluentNexus.Endpoints;
 using Pathoschild.FluentNexus.Framework;
@@ -49,13 +51,31 @@ namespace Pathoschild.FluentNexus
         *********/
         /// <summary>Construct an instance.</summary>
         /// <param name="apiKey">The Nexus API key with which to authenticate.</param>
+        /// <param name="appName">An arbitrary name for the app/script using the client, reported to the Nexus Mods API and used in the user agent.</param>
+        /// <param name="appVersion">An arbitrary version number for the <paramref name="appName"/> (ideally a semantic version).</param>
         /// <param name="baseUrl">The base URL for the API.</param>
-        public NexusClient(string apiKey, string baseUrl = "https://api.nexusmods.com")
+        public NexusClient(string apiKey, string appName, string appVersion, string baseUrl = "https://api.nexusmods.com")
         {
+            // validate
+            if (string.IsNullOrWhiteSpace(apiKey))
+                throw new ArgumentException("The API key is required.", nameof(apiKey));
+            if (string.IsNullOrWhiteSpace(appName))
+                throw new ArgumentException("The app name is required.", nameof(appName));
+            if (string.IsNullOrWhiteSpace(appVersion))
+                throw new ArgumentException("The app version is required.", nameof(appVersion));
+            if (Regex.IsMatch(appName, @"[\(\)\/]"))
+                throw new ArgumentException("The app name can't contain parentheses or forward slashes.", nameof(appName));
+            if (Regex.IsMatch(appVersion, @"[\(\)\/]"))
+                throw new ArgumentException("The app version can't contain parentheses or forward slashes.", nameof(appVersion));
+
             // init client
             this.HttpClient = new FluentClient(baseUrl)
-                .SetUserAgent(this.GetDefaultUserAgent())
-                .AddDefault(p => p.WithHeader("apiKey", apiKey));
+                .SetUserAgent(this.GetDefaultUserAgent(appName, appVersion))
+                .AddDefault(p => p
+                    .WithHeader("apiKey", apiKey)
+                    .WithHeader("Application-Name", appName)
+                    .WithHeader("Application-Version", appVersion)
+                );
 
             // add filters
             this.HttpClient.Filters.Remove<DefaultErrorFilter>();
@@ -121,10 +141,13 @@ namespace Pathoschild.FluentNexus
         }
 
         /// <summary>Get the default user agent.</summary>
-        private string GetDefaultUserAgent()
+        /// <param name="appName">A unique name for the app or script using the client, reported to the Nexus Mods API and used in the user agent.</param>
+        /// <param name="appVersion">A version number for the <paramref name="appName"/> (ideally a semantic version).</param>
+        private string GetDefaultUserAgent(string appName, string appVersion)
         {
-            Version version = typeof(NexusClient).GetTypeInfo().Assembly.GetName().Version;
-            return $"FluentNexus/{version} (+http://github.com/Pathoschild/FluentNexus)";
+            string platformStr = $"{RuntimeInformation.OSDescription?.Trim()}; {RuntimeInformation.OSArchitecture}; {RuntimeInformation.FrameworkDescription}";
+            Version clientVersion = typeof(NexusClient).GetTypeInfo().Assembly.GetName().Version;
+            return $"{appName}/{appVersion} ({platformStr}) FluentNexus/{clientVersion.Major}.{clientVersion.Minor}.{clientVersion.Build}";
         }
     }
 }

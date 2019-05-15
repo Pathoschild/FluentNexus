@@ -26,14 +26,11 @@ The client works on any modern platform (including Linux, Mac, and Windows):
 ## Use
 ### Init a client
 Create the client with your [personal API key](https://www.nexusmods.com/users/myaccount?tab=api)
-(or an [SSO key](https://github.com/Nexus-Mods/sso-integration-demo)), and set the [user
-agent](https://en.wikipedia.org/wiki/User_agent#Format_for_automated_agents_(bots)) you want to use:
+(or an [SSO key](https://github.com/Nexus-Mods/sso-integration-demo)), and an arbitrary app
+name/version which is just stored by Nexus for tracking:
 ```c#
-var nexus = new NexusClient("api key here").SetUserAgent("YourProjectName/1.0.0 (+url)");
+var nexus = new NexusClient("api key here", "My App Name", "1.0.0");
 ```
-
-(The user agent will default to something like `FluentNexus/1.0.0 (+http://github.com/Pathoschild/FluentNexus)`
-if you don't set it.)
 
 ### Basic examples
 Now just call its methods to interact with the Nexus API! 
