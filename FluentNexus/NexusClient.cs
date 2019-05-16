@@ -1,7 +1,9 @@
 using System;
 using System.Net;
 using System.Reflection;
+#if !NET45
 using System.Runtime.InteropServices;
+#endif
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Pathoschild.FluentNexus.Endpoints;
@@ -145,7 +147,12 @@ namespace Pathoschild.FluentNexus
         /// <param name="appVersion">A version number for the <paramref name="appName"/> (ideally a semantic version).</param>
         private string GetDefaultUserAgent(string appName, string appVersion)
         {
-            string platformStr = $"{RuntimeInformation.OSDescription?.Trim()}; {RuntimeInformation.OSArchitecture}; {RuntimeInformation.FrameworkDescription}";
+            string platformStr =
+#if NET45
+                $"{Environment.OSVersion.VersionString}; {(Environment.Is64BitProcess ? "x64" : "x86")}";
+#else
+                $"{RuntimeInformation.OSDescription?.Trim()}; {RuntimeInformation.OSArchitecture}; {RuntimeInformation.FrameworkDescription}";
+#endif
             Version clientVersion = typeof(NexusClient).GetTypeInfo().Assembly.GetName().Version;
             return $"{appName}/{appVersion} ({platformStr}) FluentNexus/{clientVersion.Major}.{clientVersion.Minor}.{clientVersion.Build}";
         }
