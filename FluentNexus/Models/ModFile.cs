@@ -1,6 +1,7 @@
 using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Pathoschild.FluentNexus.Endpoints;
 
 namespace Pathoschild.FluentNexus.Models
 {
@@ -49,5 +50,9 @@ namespace Pathoschild.FluentNexus.Models
         /// <summary>The HTML change logs, if any.</summary>
         [JsonProperty("changelog_html")]
         public string ChangeLog { get; set; }
+
+        /// <summary>The URL to a JSON file which lists the contents for the mod file, if it's an archive file. The file can be fetched using <see cref="NexusModFilesClient.GetContentPreview"/>.</summary>
+        [JsonProperty("content_preview_link")]
+        public Uri ContentPreviewLink { get; set; }
     }
 }

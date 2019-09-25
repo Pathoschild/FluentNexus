@@ -30,6 +30,9 @@ namespace Pathoschild.FluentNexus.Endpoints
             this.Client = client;
         }
 
+        /****
+        ** Files
+        ****/
         /// <summary>Get all files a specific mod.</summary>
         /// <param name="domainName">The game key.</param>
         /// <param name="modID">The unique mod ID.</param>
@@ -61,6 +64,9 @@ namespace Pathoschild.FluentNexus.Endpoints
                 .MakeSyncSafe();
         }
 
+        /****
+        ** Download links
+        ****/
         /// <summary>Get the download links for a mod file. This may return multiple results if the file is available from different CDNs. This overload is only available when authenticated as a premium Nexus account.</summary>
         /// <param name="domainName">The game key.</param>
         /// <param name="modID">The unique mod ID.</param>
@@ -90,6 +96,21 @@ namespace Pathoschild.FluentNexus.Endpoints
                 })
                 .AsArray<ModFileDownloadLink>()
                 .MakeSyncSafe();
+        }
+
+        /****
+        ** File preview
+        ****/
+        /// <summary>Get a preview of the contents of a mod file, if any.</summary>
+        /// <param name="url">The content preview URL from the <see cref="ModFile.ContentPreviewLink"/> field returned by <see cref="GetModFiles"/> or <see cref="GetModFile"/>.</param>
+        public async Task<ContentPreview> GetContentPreview(Uri url)
+        {
+            if (url == null)
+                return null;
+
+            return await this.Client
+                .GetAsync(url.ToString())
+                .As<ContentPreview>();
         }
 
 

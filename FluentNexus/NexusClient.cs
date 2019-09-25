@@ -122,6 +122,10 @@ namespace Pathoschild.FluentNexus
         /// <param name="response">The HTTP response from the Nexus API.</param>
         private void OnResponseReceived(IResponse response)
         {
+            // ignore non-API query (e.g. content preview URLs)
+            if (!response.Message.Headers.Contains("x-rl-daily-limit") && response.Message.RequestMessage.RequestUri.Host != this.HttpClient.BaseClient.BaseAddress.Host)
+                return;
+
             // handle authentication failure
             if (response.Status == HttpStatusCode.Unauthorized)
             {

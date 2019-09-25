@@ -16,6 +16,7 @@
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/Pathoschild/FluentNexus</RepositoryUrl>
     <PackageReleaseNotes>
+      - Added support for fetching the new mod file content previews.
       - Updated dependencies.
     </PackageReleaseNotes>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>

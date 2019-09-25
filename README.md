@@ -50,6 +50,13 @@ For example...
    ```c#
    ModFileDownloadLink[] downloadLinks = await nexus.ModFiles.GetDownloadLinks("stardewvalley", 2400, 9622);
    ```
+
+* Get a content preview for a mod file if it's an archive (e.g. `.zip`):
+  ```c#
+  ModFile file = await nexus.ModFiles.GetModFiles("stardewvalley", 2400, 9622);
+  ContentPreview preview = await nexus.ModFiles.GetContentPreview(file.ContentPreviewLink);
+  ```
+
 * Which mods are being tracked by the user?
   ```c#
   UserTrackedMod[] mods = await nexus.Users.GetTrackedMods();
