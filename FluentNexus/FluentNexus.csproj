@@ -7,19 +7,19 @@
     <RootNamespace>Pathoschild.FluentNexus</RootNamespace>
     <PackageId>Pathoschild.FluentNexus</PackageId>
     <Title>FluentNexus</Title>
-    <Version>0.8</Version>
+    <Version>0.8.0</Version>
     <Authors>Pathoschild</Authors>
     <Description>A modern async HTTP client for the Nexus Mods API. It gives you simple strongly-typed methods to access all of the Nexus API endpoints, handling the gritty details like deserialisation, content negotiation, URL encoding, and error-handling.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/Pathoschild/FluentNexus#readme</PackageProjectUrl>
-    <PackageIconUrl>https://s3.amazonaws.com/pathoschild/avatar-64x64.png</PackageIconUrl>
-    <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/Pathoschild/FluentNexus</RepositoryUrl>
+    <PackageIcon>images/package-icon.png</PackageIcon>
     <PackageReleaseNotes>
       - Added support for mod file content previews.
       - Added the mods/latest_updated endpoint.
       - Updated dependencies.
     </PackageReleaseNotes>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/Pathoschild/FluentNexus</RepositoryUrl>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
@@ -27,6 +27,10 @@
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="Pathoschild.Http.FluentClient" Version="3.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="package-icon.png" Pack="true" PackagePath="images/"/>
   </ItemGroup>
 
 </Project>
