@@ -41,12 +41,22 @@ namespace Pathoschild.FluentNexus.Endpoints
                 .MakeSyncSafe();
         }
 
-        /// <summary>Get the ten latest mods added for a specified game.</summary>
+        /// <summary>Get the ten mods most recently added for a specified game.</summary>
         /// <param name="domainName">The game key.</param>
         public async Task<Mod[]> GetLatestAdded(string domainName)
         {
             return await this.Client
                 .GetAsync($"v1/games/{domainName}/mods/latest_added.json")
+                .AsArray<Mod>()
+                .MakeSyncSafe();
+        }
+
+        /// <summary>Get the ten mods most recently updated for a specified game.</summary>
+        /// <param name="domainName">The game key.</param>
+        public async Task<Mod[]> GetLatestUpdated(string domainName)
+        {
+            return await this.Client
+                .GetAsync($"v1/games/{domainName}/mods/latest_updated.json")
                 .AsArray<Mod>()
                 .MakeSyncSafe();
         }
