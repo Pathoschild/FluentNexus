@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using Pathoschild.FluentNexus.Framework;
 
 namespace Pathoschild.FluentNexus.Models
 {
@@ -13,6 +14,8 @@ namespace Pathoschild.FluentNexus.Models
         public string Name { get; set; }
 
         /// <summary>The parent category, if any.</summary>
+        [JsonProperty("parent_category")]
+        [JsonConverter(typeof(NullableIntConverter))]
         public int? ParentCategory { get; set; }
     }
 }

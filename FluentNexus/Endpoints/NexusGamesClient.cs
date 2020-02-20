@@ -74,14 +74,6 @@ namespace Pathoschild.FluentNexus.Endpoints
                 game.IsApproved = game.ApprovedDate?.Ticks > NexusGamesClient.UnixEpochTicks;
                 if (game.ApprovedDate?.Year <= 1970)
                     game.ApprovedDate = null;
-
-                // normalise parent categories
-                // Nexus API sets it to 'false' (which becomes 0) if there's no parent category
-                foreach (GameCategory category in game.Categories)
-                {
-                    if (category.ParentCategory == 0)
-                        category.ParentCategory = null;
-                }
             }
         }
     }
