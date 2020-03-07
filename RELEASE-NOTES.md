@@ -1,6 +1,6 @@
 # Release notes
 ## 1.0
-Upcoming release.
+Released 06 March 2020 (first beta on 03 March 2019).
 
 * Initial release, with support for all current Nexus API endpoints.
 * Added rate limit tracking and handling.
