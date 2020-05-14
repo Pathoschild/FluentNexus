@@ -1,4 +1,7 @@
 # Release notes
+## Upcoming version
+* Updated to FluentHttpClient 4.0.
+
 ## 1.0
 Released 06 March 2020 (first beta on 03 March 2019).
 

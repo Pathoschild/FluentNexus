@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <!-- Target frameworks: netstandard1.3 and net45 are the minimum supported (except net45 doesn't support RuntimeInformation until net471); netstandard2.0 is preferred for minimal FluentHttpClient dependencies. -->
@@ -25,7 +25,7 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="Pathoschild.Http.FluentClient" Version="3.3.1" />
+    <PackageReference Include="Pathoschild.Http.FluentClient" Version="4.0.0" />
   </ItemGroup>
 
   <ItemGroup>
