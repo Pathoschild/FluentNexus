@@ -15,6 +15,9 @@ namespace Pathoschild.FluentNexus.Models
         /// <summary>The download name.</summary>
         public string Name { get; set; }
 
+        /// <summary>The download description.</summary>
+        public string Description { get; set; }
+
         /// <summary>The file version number.</summary>
         [JsonProperty("version")]
         public string FileVersion { get; set; }

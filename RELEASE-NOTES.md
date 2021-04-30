@@ -1,4 +1,7 @@
 # Release notes
+## Upcoming release
+* Added mod file `Description` field.
+
 ## 1.0.1
 Released 13 May 2020.
 
