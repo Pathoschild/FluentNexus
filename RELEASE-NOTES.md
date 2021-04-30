@@ -1,6 +1,9 @@
 # Release notes
-## Upcoming release
+## 1.0.2
+Released 30 April 2021.
+
 * Added mod file `Description` field.
+* Updated to FluentHttpClient 4.1.
 
 ## 1.0.1
 Released 13 May 2020.
