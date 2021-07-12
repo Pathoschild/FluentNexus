@@ -6,13 +6,13 @@
     <RootNamespace>Pathoschild.FluentNexus</RootNamespace>
     <PackageId>Pathoschild.FluentNexus</PackageId>
     <Title>FluentNexus</Title>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Authors>Pathoschild</Authors>
     <Description>A modern async HTTP client for the Nexus Mods API. It gives you simple strongly-typed methods to access all of the Nexus API endpoints, handling the gritty details like deserialisation, content negotiation, URL encoding, and error-handling.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/Pathoschild/FluentNexus#readme</PackageProjectUrl>
     <PackageIcon>images/package-icon.png</PackageIcon>
-    <PackageReleaseNotes>See release notes at https://github.com/Pathoschild/FluentNexus/blob/develop/RELEASE-NOTES.md#102</PackageReleaseNotes>
+    <PackageReleaseNotes>See release notes at https://github.com/Pathoschild/FluentNexus/blob/develop/RELEASE-NOTES.md#103</PackageReleaseNotes>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/Pathoschild/FluentNexus.git</RepositoryUrl>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>

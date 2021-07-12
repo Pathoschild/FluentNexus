@@ -1,5 +1,7 @@
 # Release notes
-## Upcoming release
+## 1.0.3
+Released 11 July 2021.
+
 * Added an `UnmappedFields` property to all data models. This contains any fields returned by the Nexus API which don't match a known property.
 * Added support for newer API fields:
   * `Mod.AllowRating` (whether the current user is allowed to endorse this mod);
