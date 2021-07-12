@@ -1,4 +1,9 @@
 # Release notes
+## 1.0.4
+Released 12 July 2021.
+
+* Added the new `Archived` file category.
+
 ## 1.0.3
 Released 11 July 2021.
 
