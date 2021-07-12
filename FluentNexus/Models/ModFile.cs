@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Pathoschild.FluentNexus.Endpoints;
@@ -6,7 +7,7 @@ using Pathoschild.FluentNexus.Endpoints;
 namespace Pathoschild.FluentNexus.Models
 {
     /// <summary>A downloadable mod file.</summary>
-    public class ModFile
+    public class ModFile : IDataModel
     {
         /// <summary>The unique file ID.</summary>
         [JsonProperty("file_id")]
@@ -39,7 +40,16 @@ namespace Pathoschild.FluentNexus.Models
         public bool IsPrimary { get; set; }
 
         /// <summary>The file size in kilobytes.</summary>
+        [Obsolete("Use " + nameof(SizeInKilobytes) + " instead.")]
         public int Size { get; set; }
+
+        /// <summary>The file size in kilobytes.</summary>
+        [JsonProperty("size_kb")]
+        public int SizeInKilobytes { get; set; }
+
+        /// <summary>The file size in bytes, if available.</summary>
+        [JsonProperty("size_in_bytes")]
+        public int? SizeInBytes { get; set; }
 
         /// <summary>When the file was uploaded.</summary>
         [JsonProperty("uploaded_timestamp")]
@@ -57,5 +67,9 @@ namespace Pathoschild.FluentNexus.Models
         /// <summary>The URL to a JSON file which lists the contents for the mod file, if it's an archive file. The file can be fetched using <see cref="NexusModFilesClient.GetContentPreview"/>.</summary>
         [JsonProperty("content_preview_link")]
         public Uri ContentPreviewLink { get; set; }
+
+        /// <inheritdoc />
+        [JsonExtensionData]
+        public IDictionary<string, object> UnmappedFields { get; set; }
     }
 }

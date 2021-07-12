@@ -1,11 +1,12 @@
 using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
 namespace Pathoschild.FluentNexus.Models
 {
     /// <summary>A record indicating an update relationship between two files (e.g. 1.0.1 supersedes 1.0.0).</summary>
-    public class ModFileUpdate
+    public class ModFileUpdate : IDataModel
     {
         /// <summary>The older file ID.</summary>
         [JsonProperty("old_file_id")]
@@ -28,5 +29,8 @@ namespace Pathoschild.FluentNexus.Models
         [JsonConverter(typeof(UnixDateTimeConverter))]
         public DateTimeOffset UploadTilestamp { get; set; }
 
+        /// <inheritdoc />
+        [JsonExtensionData]
+        public IDictionary<string, object> UnmappedFields { get; set; }
     }
 }

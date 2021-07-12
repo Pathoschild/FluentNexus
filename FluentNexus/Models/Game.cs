@@ -1,11 +1,12 @@
 using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
 namespace Pathoschild.FluentNexus.Models
 {
     /// <summary>A Nexus game model.</summary>
-    public class Game
+    public class Game : IDataModel
     {
         /// <summary>The unique game ID.</summary>
         public int ID { get; set; }
@@ -59,5 +60,9 @@ namespace Pathoschild.FluentNexus.Models
         [JsonProperty("approved_date")]
         [JsonConverter(typeof(UnixDateTimeConverter))]
         public DateTimeOffset? ApprovedDate { get; set; }
+
+        /// <inheritdoc />
+        [JsonExtensionData]
+        public IDictionary<string, object> UnmappedFields { get; set; }
     }
 }

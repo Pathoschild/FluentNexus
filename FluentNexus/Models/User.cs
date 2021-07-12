@@ -1,9 +1,10 @@
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Pathoschild.FluentNexus.Models
 {
     /// <summary>User login metadata.</summary>
-    public class User
+    public class User : IDataModel
     {
         /// <summary>The unique user ID.</summary>
         [JsonProperty("user_id")]
@@ -30,5 +31,8 @@ namespace Pathoschild.FluentNexus.Models
         [JsonProperty("is_supporter")]
         public bool IsSupporter { get; set; }
 
+        /// <inheritdoc />
+        [JsonExtensionData]
+        public IDictionary<string, object> UnmappedFields { get; set; }
     }
 }
