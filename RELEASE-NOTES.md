@@ -1,6 +1,11 @@
 # Release notes
 ## Upcoming release
 * Added an `UnmappedFields` property to all data models. This contains any fields returned by the Nexus API which don't match a known property.
+* Added support for newer API fields:
+  * `Mod.AllowRating` (whether the current user is allowed to endorse this mod);
+  * `Mod.EndorsementCount` (the number of endorsements given by users for this mod);
+  * `ModFile.SizeInBytes` (the downloaded file size in bytes);
+  * `ModFile.SizeInKilobytes` (equivalent to the previous `ModFile.Size`, which still exists).
 
 ## 1.0.2
 Released 30 April 2021.

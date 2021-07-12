@@ -75,8 +75,16 @@ namespace Pathoschild.FluentNexus.Models
         /// <summary>The user who uploaded them od.</summary>
         public UserRef User { get; set; }
 
+        /// <summary>Whether the current user is allowed to endorse this mod.</summary>
+        [JsonProperty("allow_rating")]
+        public bool AllowRating { get; set; }
+
         /// <summary>The user's endorsement status with this mod, or <c>null</c> if not applicable.</summary>
         public EndorsementRef Endorsement { get; set; }
+
+        /// <summary>The number of endorsements given by users for this mod.</summary>
+        [JsonProperty("endorsement_count")]
+        public int EndorsementCount { get; set; }
 
         /// <inheritdoc />
         [JsonExtensionData]

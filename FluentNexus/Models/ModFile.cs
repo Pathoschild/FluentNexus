@@ -40,7 +40,16 @@ namespace Pathoschild.FluentNexus.Models
         public bool IsPrimary { get; set; }
 
         /// <summary>The file size in kilobytes.</summary>
+        [Obsolete("Use " + nameof(SizeInKilobytes) + " instead.")]
         public int Size { get; set; }
+
+        /// <summary>The file size in kilobytes.</summary>
+        [JsonProperty("size_kb")]
+        public int SizeInKilobytes { get; set; }
+
+        /// <summary>The file size in bytes, if available.</summary>
+        [JsonProperty("size_in_bytes")]
+        public int? SizeInBytes { get; set; }
 
         /// <summary>When the file was uploaded.</summary>
         [JsonProperty("uploaded_timestamp")]
