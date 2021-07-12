@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Pathoschild.FluentNexus.Endpoints;
@@ -6,7 +7,7 @@ using Pathoschild.FluentNexus.Endpoints;
 namespace Pathoschild.FluentNexus.Models
 {
     /// <summary>A downloadable mod file.</summary>
-    public class ModFile
+    public class ModFile : IDataModel
     {
         /// <summary>The unique file ID.</summary>
         [JsonProperty("file_id")]
@@ -57,5 +58,9 @@ namespace Pathoschild.FluentNexus.Models
         /// <summary>The URL to a JSON file which lists the contents for the mod file, if it's an archive file. The file can be fetched using <see cref="NexusModFilesClient.GetContentPreview"/>.</summary>
         [JsonProperty("content_preview_link")]
         public Uri ContentPreviewLink { get; set; }
+
+        /// <inheritdoc />
+        [JsonExtensionData]
+        public IDictionary<string, object> UnmappedFields { get; set; }
     }
 }

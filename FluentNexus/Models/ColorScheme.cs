@@ -1,9 +1,10 @@
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Pathoschild.FluentNexus.Models
 {
     /// <summary>A Nexus color scheme.</summary>
-    public class ColorScheme
+    public class ColorScheme : IDataModel
     {
         /// <summary>The unique color scheme ID.</summary>
         public int ID { get; set; }
@@ -22,5 +23,9 @@ namespace Pathoschild.FluentNexus.Models
         /// <summary>The darker color in the scheme, like '#545e24'.</summary>
         [JsonProperty("darker_colour")]
         public string DarkerColor { get; set; }
+
+        /// <inheritdoc />
+        [JsonExtensionData]
+        public IDictionary<string, object> UnmappedFields { get; set; }
     }
 }

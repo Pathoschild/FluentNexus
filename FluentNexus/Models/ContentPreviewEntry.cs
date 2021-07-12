@@ -1,9 +1,10 @@
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Pathoschild.FluentNexus.Models
 {
     /// <summary>Metadata about a file within a download archive file.</summary>
-    public class ContentPreviewEntry
+    public class ContentPreviewEntry : IDataModel
     {
         /// <summary>The full path to this entry in the archive, relative to the archive root.</summary>
         public string Path { get; set; }
@@ -20,5 +21,9 @@ namespace Pathoschild.FluentNexus.Models
 
         /// <summary>The entries within this entry (e.g. files in this folder), if any.</summary>
         public ContentPreviewEntry[] Children { get; set; } = new ContentPreviewEntry[0];
+
+        /// <inheritdoc />
+        [JsonExtensionData]
+        public IDictionary<string, object> UnmappedFields { get; set; }
     }
 }

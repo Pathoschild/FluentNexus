@@ -1,11 +1,12 @@
 using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
 namespace Pathoschild.FluentNexus.Models
 {
     /// <summary>A Nexus mod model.</summary>
-    public class Mod
+    public class Mod : IDataModel
     {
         /// <summary>The mod name.</summary>
         public string Name { get; set; }
@@ -76,5 +77,9 @@ namespace Pathoschild.FluentNexus.Models
 
         /// <summary>The user's endorsement status with this mod, or <c>null</c> if not applicable.</summary>
         public EndorsementRef Endorsement { get; set; }
+
+        /// <inheritdoc />
+        [JsonExtensionData]
+        public IDictionary<string, object> UnmappedFields { get; set; }
     }
 }

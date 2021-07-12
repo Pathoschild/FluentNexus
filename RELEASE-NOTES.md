@@ -1,4 +1,7 @@
 # Release notes
+## Upcoming release
+* Added an `UnmappedFields` property to all data models. This contains any fields returned by the Nexus API which don't match a known property.
+
 ## 1.0.2
 Released 30 April 2021.
 
