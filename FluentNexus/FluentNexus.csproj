@@ -1,5 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <!-- Target frameworks: netstandard1.3 and net45 are the minimum supported (except net45 doesn't support RuntimeInformation until net471); netstandard2.0 is preferred for minimal FluentHttpClient dependencies. -->
     <TargetFrameworks>netstandard1.3;netstandard2.0;net45;net471</TargetFrameworks>
@@ -28,5 +27,4 @@
   <ItemGroup>
     <None Include="package-icon.png" Pack="true" PackagePath="images/" />
   </ItemGroup>
-
 </Project>

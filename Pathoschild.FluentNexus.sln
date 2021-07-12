@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "root", "root", "{E4A79030-4
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentNexus", "FluentNexus\FluentNexus.csproj", "{A482C54A-6A11-4D59-84D5-DC71EA191749}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentNexus.TestConsole", "FluentNexus.TestConsole\FluentNexus.TestConsole.csproj", "{11019AAD-C0FA-4433-8A38-5F485AD02C29}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,18 @@ Global
 		{A482C54A-6A11-4D59-84D5-DC71EA191749}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{A482C54A-6A11-4D59-84D5-DC71EA191749}.Release|x86.ActiveCfg = Release|Any CPU
 		{A482C54A-6A11-4D59-84D5-DC71EA191749}.Release|x86.Build.0 = Release|Any CPU
+		{11019AAD-C0FA-4433-8A38-5F485AD02C29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11019AAD-C0FA-4433-8A38-5F485AD02C29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11019AAD-C0FA-4433-8A38-5F485AD02C29}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{11019AAD-C0FA-4433-8A38-5F485AD02C29}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{11019AAD-C0FA-4433-8A38-5F485AD02C29}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{11019AAD-C0FA-4433-8A38-5F485AD02C29}.Debug|x86.Build.0 = Debug|Any CPU
+		{11019AAD-C0FA-4433-8A38-5F485AD02C29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11019AAD-C0FA-4433-8A38-5F485AD02C29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11019AAD-C0FA-4433-8A38-5F485AD02C29}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{11019AAD-C0FA-4433-8A38-5F485AD02C29}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{11019AAD-C0FA-4433-8A38-5F485AD02C29}.Release|x86.ActiveCfg = Release|Any CPU
+		{11019AAD-C0FA-4433-8A38-5F485AD02C29}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
