@@ -36,7 +36,7 @@ namespace Pathoschild.FluentNexus.Endpoints
         /// <summary>Get all files a specific mod.</summary>
         /// <param name="domainName">The game key.</param>
         /// <param name="modID">The unique mod ID.</param>
-        /// <param name="categories">The categories for which to fetch files, or empty to fetch all.</param>
+        /// <param name="categories">The categories for which to fetch files, or empty to fetch all files (including archived files).</param>
         public async Task<ModFileList> GetModFiles(string domainName, int modID, params FileCategory[] categories)
         {
             // format category list
