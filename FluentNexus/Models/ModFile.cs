@@ -49,7 +49,7 @@ namespace Pathoschild.FluentNexus.Models
 
         /// <summary>The file size in bytes, if available.</summary>
         [JsonProperty("size_in_bytes")]
-        public int? SizeInBytes { get; set; }
+        public long? SizeInBytes { get; set; }
 
         /// <summary>When the file was uploaded.</summary>
         [JsonProperty("uploaded_timestamp")]
