@@ -7,14 +7,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "root", "root", "{E4A79030-4
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
+		CHANGELOG.md = CHANGELOG.md
 		LICENSE.txt = LICENSE.txt
 		README.md = README.md
-		RELEASE-NOTES.md = RELEASE-NOTES.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentNexus", "FluentNexus\FluentNexus.csproj", "{A482C54A-6A11-4D59-84D5-DC71EA191749}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentNexus.TestConsole", "FluentNexus.TestConsole\FluentNexus.TestConsole.csproj", "{11019AAD-C0FA-4433-8A38-5F485AD02C29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentNexus.TestConsole", "FluentNexus.TestConsole\FluentNexus.TestConsole.csproj", "{11019AAD-C0FA-4433-8A38-5F485AD02C29}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
