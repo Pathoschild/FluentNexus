@@ -1,5 +1,7 @@
 # Release notes
-## Upcoming release
+## 1.0.5
+Released 18 September 2021.
+
 * Changed mod file size fields to `long` to support larger files (thanks to Mgamerz!).
 
 ## 1.0.4
