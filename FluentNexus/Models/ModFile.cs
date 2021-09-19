@@ -41,11 +41,11 @@ namespace Pathoschild.FluentNexus.Models
 
         /// <summary>The file size in kilobytes.</summary>
         [Obsolete("Use " + nameof(SizeInKilobytes) + " instead.")]
-        public int Size { get; set; }
+        public long Size { get; set; }
 
         /// <summary>The file size in kilobytes.</summary>
         [JsonProperty("size_kb")]
-        public int SizeInKilobytes { get; set; }
+        public long SizeInKilobytes { get; set; }
 
         /// <summary>The file size in bytes, if available.</summary>
         [JsonProperty("size_in_bytes")]
